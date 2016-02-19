@@ -1,3 +1,5 @@
+// boundingBox : x, y, width, height
+
 var ox_out = {
   "language": "en",
   "textAngle": 0,
@@ -570,4 +572,76 @@ var ox_out = {
   ]
 };
 
-console.log("num regions =", ox_out.regions.length);
+var num_regions = ox_out.regions.length;
+
+document.getElementById("text").innerHTML = "<h1>num regions = " + num_regions + "</h1>";
+
+document.getElementById("text").innerHTML = extractText(ox_out.regions);
+
+document.getElementById("regrouped-text").innerHTML = printStats(regroupText(ox_out.regions));
+
+function extractText(regions) {
+    var extracted_text = "";
+    for(var r = 0; r < regions.length; r++){
+	extracted_text += "<p> <h3>Region " + (r+1) + " Text:</h3>" + extractRegionText(regions[r]) + "</p>";
+    }
+    return extracted_text;
+}
+
+function extractRegionText(region) {
+    var region_text = "";
+    var lines = region.lines;
+
+    for(var i = 0; i < lines.length; i++){
+	var line_text = "";
+	var words = lines[i].words;
+
+	for(var j = 0; j < words.length; j++){
+	    line_text += words[j].text + " ";
+	}
+	region_text += line_text + "</br>";
+    }
+    return region_text;
+}
+
+function regroupText(regions) {
+    var stats = {};
+    
+    for(var r = 0; r < regions.length; r++){
+	stats = regroupRegionText(regions[r], stats);
+    }
+
+    return stats;
+}
+
+function regroupRegionText(region, stats) {
+    var lines = region.lines;
+
+    for(var i = 0; i < lines.length; i++){
+	var words = lines[i].words;
+	
+	for(var j = 0; j < words.length; j++){
+	    heightIndex = 1;
+	    heightVal = Math.floor(parseInt(words[j].boundingBox.split(',')[heightIndex])/10);
+	    console.log(words[j].boundingBox.split(','), heightVal);
+	    if(stats[heightVal]){
+		stats[heightVal] += words[j].text + " ";
+	    }
+	    else{
+		stats[heightVal] = words[j].text + " ";
+	    }
+	}
+    }
+
+    return stats;
+}
+
+function printStats(stats) {
+    var text = "<h3>Regrouped Text:</h3>";
+
+    for(var key in stats){
+	text += stats[key] + "</br>";
+    }
+
+    return text;
+}
