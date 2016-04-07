@@ -5,7 +5,10 @@
  * Any stats specified in filters that were not found
  * are reported in "Failed to find" field.
  */
-function filter(out, filters) {
+function filter(out, filter_set) {
+    var default_filters = ["Unique Portals Visited", "XM Collected", "Distance Walked", "Resonators Deployed", "Links Created", "Control Fields Created", "Mind Units Captured", "Longest Link Ever Created", "Largest Control Field", "XM Recharged", "Portals Captured", "Unique Portals Captured", "Mods Deployed", "Resonators Destroyed", "Portals Neutralized", "Enemy Links Destroyed", "Enemy Control Fields Destroyed", "Max Time Portal Held", "Max Time Link Maintained", "Max Link Length x Days", "Max Time Field Held", "Largest Field MUs x Days", "Unique Missions Completed", "Hacks", "Glyph Hack Points", "Longest Hacking Streak"];
+    var filters = (filter_set != null) ? filter_set : default_filters;
+
     var lines = out.ParsedResults[0].TextOverlay.Lines;
     var raw_stats = regroup(lines);
     var filtered_stats = {};
@@ -17,24 +20,32 @@ function filter(out, filters) {
 	    // check if current stat is of interest (case insensitive match of filter string)
 	    var pos = raw_stats[stat].toLowerCase().search(key.toLowerCase());
 	    if(pos != -1){
-		// found the filter string, save stat (key value pair) in key:value format
-		filtered_stats[key] = raw_stats[stat].slice(pos + key.length + 1);
-		// remove the filter (key)
-		filters.splice(i,1);
+		// found the filter string, save stat (key value pair) in key:value format (units excluded)
+		var val = parseInt(raw_stats[stat].slice(pos + key.length + 1).replace(",", "").replace("O","0"));
+		//filtered_stats[key] = raw_stats[stat].slice(pos + key.length + 1) + " " + val;
+			
+		if(isNaN(val)){ 
+		    filtered_stats[key] = "";
+		}
+		else{
+		    // remove the filter (key) if successfully extracted stat value
+		    filtered_stats[key] = val;
+		    filters.splice(i,1); 
+		}
 		break;
 	    }
 	}
     }
-    
+
     // report any missing stats
     if(filters.length > 0){
 	var keys = filters[0];
 	for(var i = 1; i < filters.length; i++){
 	    keys += ", " + filters[i];
 	}
-	filtered_stats["Failed to find"] = keys;
+	filtered_stats["Failed to extract stats for"] = keys;
     }
-
+    
     return filtered_stats;
 }
 

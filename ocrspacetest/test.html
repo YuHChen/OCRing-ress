@@ -1,0 +1,41 @@
+<head>
+</head>
+
+<body>
+
+  <form id="profile">
+    Select agent profile: <input type="file" name="files"></br>
+    <div id="options" style="display: none">
+      <input type="checkbox" id="append" name="append">
+      <label for="append">Append to CSV: </label>
+      <input type="file" name="csv" disabled="true">
+    </div>
+    <input type="button" id="toggle-options" value="More Options">
+    <input type="submit" value="Extract">
+  </form>
+
+  <div id="results" style="display: none"></div>
+
+  <form id="download" style="display: none">
+    <!---
+    <label for="csv-filename">CSV filename: </label>
+    <input type="text" name="csv-filename" id="csv-filename" value="export.csv" />
+    -->
+    <input type="submit" value="Download">
+  </form>
+
+  <h3>Auto Parse:</h3>
+  <div id="auto"></div>
+
+  <h3>Manual Parse:</h3>
+  <div id="manual"></div>
+
+  <h3>User Submission:</h3>
+  <div id="user"></div>
+
+  <script src="./csv.js"></script>
+  <script src="./ocr.js"></script>
+  <script src="./filter.js"></script>
+  <script src="./ocrspace_out.js"></script>
+
+</body>

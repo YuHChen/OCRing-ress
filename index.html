@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>OCRing-ress</title>
+</head>
+
+<body>
+
+  <form id="upload">
+    <p>
+      <label title="Select Agent Profile(s) to Extract" for="profiles">Agent Profile: </label>
+      <input type="file" id="profiles" name="profiles"/>
+    </p>
+    <p>
+      <input type="button" id="toggle-options" value="More Options">
+    </p>
+    <fieldset id="options" style="display: none;">
+      <legend>Options:</legend>
+      <input type="checkbox" id="append" name="append"/>
+      <label title="Select CSV File to Append New Stats to" for="append">Append to CSV: </label>
+      <input type="file" name="csv" disabled/>
+    </fieldset>
+    <p>
+      <input type="submit" value="Extract">
+    </p>
+  </form>
+
+  <div id="results" style="display: none;"></div>
+  
+  <form id="download" style="display: none;">
+    <input type="submit" value="Download">
+  </form>
+  
+</body>
+
+</html>
