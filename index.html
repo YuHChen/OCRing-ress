@@ -8,30 +8,68 @@
 
 <body>
 
+  <h2>Welcome to OCRing-ress!</h2>
+
+  <!-- How To --->
+  <div>
+    <p>
+      Using OCR (Optical Character Recognition) to extract agent profiles is as simple as ...</br>
+      <ol>
+	<li>Upload the agent profile.</li>
+	<li>(Optional) Choose options.</li>
+	<li>Extract profile.</li>
+	<li>Verify Results.</li>
+	<li>Download.</li>
+      </ol>
+    </p>
+  </div>
+
+  <!-- Profile Upload Form --->
   <form id="upload">
     <p>
-      <label title="Select Agent Profile(s) to Extract" for="profiles">Agent Profile: </label>
-      <input type="file" id="profiles" name="profiles"/>
+      <label title="Select Agent Profile(s) to Extract" for="profiles">Agent Profile(s): </label>
+      <input type="file" id="profiles"/>
     </p>
-    <p>
-      <input type="button" id="toggle-options" value="More Options">
-    </p>
-    <fieldset id="options" style="display: none;">
+
+    <!-- Options -->
+    <p><input type="button" class="" id="options-toggle" value="More Options"></p>
+    <fieldset id="options-menu" style="display: none;">
       <legend>Options:</legend>
-      <input type="checkbox" id="append" name="append"/>
-      <label title="Select CSV File to Append New Stats to" for="append">Append to CSV: </label>
-      <input type="file" name="csv" disabled/>
+      <input type="checkbox" id="csv-append"/>
+      <label title="Select CSV File to Add New Stats to" for="csv-append">Add to CSV: </label>
+      <input type="file" id="csv" disabled/>
     </fieldset>
-    <p>
-      <input type="submit" value="Extract">
-    </p>
+
+    <p><input type="submit" value="Extract"></p>
   </form>
 
-  <div id="results" style="display: none;"></div>
+  <!-- OCRs Remaining Counter -->
+  <div>
+    <p><span id="ocrs-remaining"></span> extractions remaining</p>
+    <p id="ocrs-remaining-msg" style="display: none;">Only 10 extractions per hour. Please wait.</p>
+  </div>
+
+  <!-- Results Display -->
+  <div style="display: none;">
+    <div style="display: none;">
+      Unfortunately, failed to extract stats for:
+      <ul id="failed"></ul>
+    </div>
+
+    <div>
+      Extracted Agent Profile:
+      <table id="results"></table>
+    </div>
+  </div>
   
+  <!-- Download Form -->
   <form id="download" style="display: none;">
     <input type="submit" value="Download">
   </form>
+
+  <script src="./utils.js"></script>
+  <script src="./counter.js"></script>  
+  <script src="./ocring-ress.js"></script>
   
 </body>
 

@@ -8,8 +8,7 @@ function parseOptions() {
 }
 
 function handleResponse(response) {
-    var options = parseOptions();
-    /*
+    //var options = parseOptions();
     document.getElementById("auto").innerHTML = response;
     var stats = filter(JSON.parse(response), null);
     document.getElementById("user").innerHTML = printStats(stats);
@@ -17,9 +16,8 @@ function handleResponse(response) {
     //document.getElementById("user").innerHTML = printStats(filter(JSON.parse(response), ["Hacks", "XM Collected"]));
     
     enable_downloadCSV([stats]);
-    */
 }
-/*
+
 function handleSubmission(event) {
     var files = document.getElementById("profile").elements['files'].files;
     //var file = event.target.files[0];
@@ -58,12 +56,13 @@ function handleSubmission(event) {
 
     event.preventDefault();
 }
-*/
 
+/*
 function handleSubmission(event) {
     handleResponse("");
     event.preventDefault();
 }
+*/
 
 document.getElementById("profile").
     addEventListener('submit', handleSubmission);
