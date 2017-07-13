@@ -1,0 +1,18 @@
+============ OCR =================
+https://ocr.space/OCRAPI
+* The free API key ("helloworld") allows for 100,000 requests/month per IP address (~3,000 requests/day). There is a rate limit of 20 requests within 10 min again, per IP address to prevent accidental spamming. So if you use this key inside a mobile phone app, every user would have more than 3000 OCR conversion per day. This should be enough for most use cases, but if you really need more requests, just email us for a different API key. We enjoy provding this free OCR API, but the API comes with no warranty.
+* JSON response
+
+============ Spell Check =============
+http://wsf.cdyne.com/SpellChecker/check.asmx?op=CheckTextBodyV2
+* no limits (?)
+* XML response
+
+http://wiki.languagetool.org/public-http-api
+* Access is currently limited to 20 requests per IP per minute.
+* The maximum text size is limited (currently to 50KB).
+* XML response
+
+http://www.afterthedeadline.com/api.slp
+* no limits (?)
+* XML response
